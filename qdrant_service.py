@@ -29,17 +29,17 @@ q = QdrantClient(url=qcfg["url"], api_key=qcfg.get("api_key"))
 def query(req: QueryRequest):
     top_k = req.top_k or cfg["ingest"]["top_k"]
 
-    # 1) embed the query
+    # embed the query
     q_vector = embedder.encode(req.question).tolist()
 
-    # 2) retrieve from Qdrant
+    # retrieve from Qdrant
     hits = q.search(collection_name=COLLECTION, query_vector=q_vector, limit=top_k)
     contexts = []
     for h in hits:
         payload = h.payload
         contexts.append(f"(source:{payload.get('source_file')} page_chunk:{payload.get('chunk_index')}) {payload.get('text')}")
 
-    # 3) build prompt and generate
+    # build prompt and generate
     prompt = "You are a helpful assistant. Use the following context to answer the question.\n\n"
     prompt += "\n\n---\n\n".join(contexts)
     prompt += f"\n\nQuestion: {req.question}\nAnswer:"

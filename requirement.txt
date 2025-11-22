@@ -1,22 +1,21 @@
 fastapi
 uvicorn[standard]
-transformers
-sentence-transformers
+transformers>=4.40.0.dev0
+git+https://github.com/UKPLab/sentence-transformers.git
 qdrant-client
 langgraph      
 Pillow
 python-multipart
 requests
 PyYAML
+addict
+matplotlib
 
 
 PyPDF2 
 pdf2image 
 pytesseract 
-easyocr 
-pillow 
-sentence-transformers 
-qdrant-client 
+easyocr  
 pyyaml
 bitsandbytes
 accelerate
